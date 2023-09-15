@@ -15,11 +15,14 @@ body {
     left: 0;
     background-color: white;
 }
+.datosShow{
+    max-width: 50%;
+}
 
 .calculadora {
     max-width: 400px;
     margin: 20px auto;
-    background-color: #3d3737;
+    background-color: #4e4747;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
@@ -30,20 +33,24 @@ body {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between; /* Alinea los elementos hacia los extremos */
-    background-color: #f5f5f5;
+    background-color: #2c2828;
     border-radius: 5px;
     padding: 10px;
     text-align: right;
     margin-bottom: 10px;
     font-size: 20px;
+    border: white 1px solid;
 }
 
 #text-content {
     align-self: flex-end; /* Alinea este párrafo hacia el extremo inferior (derecha) */
+    color: #f0f0f0;
 }
 
 #operation-content {
     align-self: flex-start; /* Alinea este párrafo hacia el extremo superior (izquierda) */
+    color: green;
+    font-size: 25px
 }
 /* Estilos para los números */
 .numbers {
@@ -112,7 +119,7 @@ body {
 
 .actions button {
     font-size: 20px;
-    background-color: #ff5722;
+    background-color: #1656e0;
     color: white;
     border: none;
     border-radius: 5px;

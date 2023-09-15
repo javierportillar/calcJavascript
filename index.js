@@ -48,7 +48,8 @@ operators.addEventListener("click", asignarOperador);
 
 // Eventos para acciones
 igualButton.addEventListener("click", () => realizarOp());
-btnDatos.addEventListener("click", () => mostrarCalculos ());
+btnDatos.addEventListener("click", () => mostrarCalculos());
+eliminarDatos.addEventListener("click", () => cleanScreen());
 
 //Funciones de control
 function realizarOp() {
@@ -92,7 +93,6 @@ function asignarOperador(event) {
     console.log(operador);
   }
 }
-
 function asignarNumero(num) {
   // Restablecer el estado del operador si se presiona un número
   operadorSeleccionado = false;
@@ -102,20 +102,34 @@ function asignarNumero(num) {
   actScreen();
   console.log(numActual);
 }
-
 function actScreen() {
   resultado.textContent = numActual;
 }
-
 function actScreen2() {
   // Crear una cadena que represente la operación actual
   const operacionActual = `${numAnterior} ${operador} ${numActual} = ${resultadoOp}`;
-  
+
   // Agregar la operación al historial
   operaHisto.push(`Operación n.${i} ${operacionActual}`);
   i++;
 
   // Actualizar datosData y verOpera
-  datosData.textContent = operaHisto; // Unir el historial con saltos de línea
+  datosData.textContent = operaHisto; // Historial de calculos
   verOpera.textContent = operacionActual;
+}
+function mostrarCalculos() {
+  datosShow.classList.toggle("active");
+  datosShow.classList.toggle("inactive");
+}
+
+function cleanScreen() {
+  numAnterior = "";
+  numActual = "";
+  operador = "";
+  resultadoOp = "";
+  operadorSeleccionado = false;
+  resultado.textContent = "";
+  verOpera.textContent = "";
+
+
 }
