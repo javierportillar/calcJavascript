@@ -23,7 +23,9 @@ let verOpera = document.getElementById("operation-content");
 let numAnterior = "";
 let numActual = "";
 let operador = "";
-let resultadoOp;
+let resultadoOp = "";
+// Declaración de una indicador de seleccion de un operador
+let operadorSeleccionado = false;
 
 // Eventos para recepcion del numero a operar
 cero.addEventListener("click", () => asignarNumero(0));
@@ -45,31 +47,56 @@ igualButton.addEventListener("click", () => realizarOp());
 
 //Funciones de control
 function realizarOp() {
-  if (numAnterior != "" && numActual != "") {
+  if (numAnterior !== "" && numActual !== "") {
     switch (operador) {
       case "+":
         resultadoOp = parseFloat(numActual) + parseFloat(numAnterior);
         break;
-
+      case "-":
+        resultadoOp = parseFloat(numAnterior) - parseFloat(numActual);
+        break;
+      case "x":
+        resultadoOp = parseFloat(numAnterior) * parseFloat(numActual);
+        break;
+      case "/":
+        resultadoOp = parseFloat(numAnterior) / parseFloat(numActual);
+        break;
       case "-":
         resultadoOp = parseFloat(numAnterior) - parseFloat(numActual);
         break;
     }
     console.log(numAnterior, numActual);
     numActual = resultadoOp;
+    actScreen();
     console.log(resultadoOp);
   }
 }
 function asignarOperador(event) {
-  operador = event.target.textContent;
-  numAnterior = numActual;
-  numActual = "";
-  console.log(operador);
+  // Verificar si ya se seleccionó un operador
+  if (operadorSeleccionado) {
+    resultado.textContent = "ELIGE UN NUMERO, NO OPERACION";
+    return;
+  }
+  // Verificar si el número actual no está vacío
+  if (numActual !== "") {
+    operador = event.target.textContent;
+    numAnterior = numActual;
+    numActual = "";
+    operadorSeleccionado = true;
+    console.log(operador);
+  }
 }
+
 function asignarNumero(num) {
+  // Restablecer el estado del operador si se presiona un número
+  operadorSeleccionado = false;
   // Concatenar el número al número actual como una cadena
   numActual = numActual.toString() + num.toString();
   // Actualizar la visualización en la pantalla
-  resultado.textContent = numActual;
+  actScreen();
   console.log(numActual);
+}
+
+function actScreen() {
+  resultado.textContent = numActual;
 }
