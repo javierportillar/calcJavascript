@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+}
+
+.screen {
+    background-color: black;
+    border: 5px solid rgb(227, 151, 35);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#result {
+    margin: 0;
+    color: white;
+}
+
+.numbers button {
+    background-color: rgb(95, 95, 95);
+    color: white;
+    border-radius: 10px;
+}
+
+.operators button {
+    background-color: rgb(227, 151, 35) ;
+    color: white;
+    border-radius: 10px
+}
+
+.actions button {
+    background-color: darkgrey ;
+    color: white;
+    border-radius: 10px
+}
