@@ -16,8 +16,8 @@ const igualButton = document.querySelector(".equal");
 const btnDatos = document.querySelector(".btnDatos");
 const datosShow = document.getElementById("datosShow");
 const datosData = document.getElementById("datosData");
-let resultado = document.querySelector("#text-content");
-let verOpera = document.getElementById("operation-content");
+const resultado = document.querySelector("#text-content");
+const verOpera = document.getElementById("operation-content");
 
 // Declaración de variables de control //
 let numAnterior = "";
@@ -67,9 +67,7 @@ function realizarOp() {
       case "/":
         resultadoOp = parseFloat(numAnterior) / parseFloat(numActual);
         break;
-      case "-":
-        resultadoOp = parseFloat(numAnterior) - parseFloat(numActual);
-        break;
+      
     }
     console.log(numAnterior, numActual);
     actScreen2();
@@ -133,3 +131,6 @@ function cleanScreen() {
 
 
 }
+
+
+// Poner una lista en html para indicar las op
