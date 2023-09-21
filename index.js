@@ -1,16 +1,18 @@
 // Asignación de elementos HTML a variables JS //
 const numbers = document.querySelector(".numbers");
 const operators = document.querySelector(".operators");
-const cero = document.querySelector("#cero");
-const uno = document.querySelector("#uno");
-const dos = document.querySelector("#dos");
-const tres = document.querySelector("#tres");
-const cuac = document.querySelector("#cuac");
-const cinc = document.querySelector("#cinc");
-const seis = document.querySelector("#seis");
-const siet = document.querySelector("#siet");
-const ocho = document.querySelector("#ocho");
-const nuev = document.querySelector("#nuev");
+// const [cero, uno, dos, tres, cuac, cinc, seis, siet, ocho, nuev] = [0,1,2,3,4,5,6,7,8,9].map((numero) => document.querySelector(`#num_${numero}`))
+
+// const cero = document.querySelector("#cero");
+// const uno = document.querySelector("#uno");
+// const dos = document.querySelector("#dos");
+// const tres = document.querySelector("#tres");
+// const cuac = document.querySelector("#cuac");
+// const cinc = document.querySelector("#cinc");
+// const seis = document.querySelector("#seis");
+// const siet = document.querySelector("#siet");
+// const ocho = document.querySelector("#ocho");
+// const nuev = document.querySelector("#nuev");
 const eliminarDatos = document.querySelector(".eliminarDatos");
 const igualButton = document.querySelector(".equal");
 const btnDatos = document.querySelector(".btnDatos");
@@ -27,29 +29,54 @@ let resultadoOp = "";
 // Declaración de una indicador de seleccion de un operador
 let operadorSeleccionado = false;
 // Declaración de vector almacenador de operaciones
-let operaHisto = [];
+const operaHisto = [];
 // Numero de operaciones hechas
 let i = 1;
 
+
+
+document
+.querySelectorAll('#contenedor_numeros > button')
+.forEach((boton) => boton.addEventListener("click", () => asignarNumero(parseInt(boton.textContent))))
+
 // Eventos para recepcion del numero a operar
-cero.addEventListener("click", () => asignarNumero(0));
-uno.addEventListener("click", () => asignarNumero(1));
-dos.addEventListener("click", () => asignarNumero(2));
-tres.addEventListener("click", () => asignarNumero(3));
-cuac.addEventListener("click", () => asignarNumero(4));
-cinc.addEventListener("click", () => asignarNumero(5));
-seis.addEventListener("click", () => asignarNumero(6));
-siet.addEventListener("click", () => asignarNumero(7));
-ocho.addEventListener("click", () => asignarNumero(8));
-nuev.addEventListener("click", () => asignarNumero(9));
+// [cero, uno, dos, tres,cuac,
+//   cinc,
+//   seis,
+//   siet,
+//   ocho,
+//   nuev].forEach((numero, index) => numero.addEventListener("click", () => asignarNumero(index)))
+
+// const listeners = [cero, uno, dos, tres,cuac,
+//   cinc,
+//   seis,
+//   siet,
+//   ocho,
+//   nuev].map((numero, index) => {
+//     const lis = () => asignarNumero(index);
+//     numero.addEventListener("click", lis)
+//     return {numero,lis};
+//   })
+// listeners.forEach(({numero, lis}) => numero.removeEventListener(list))
+
+// cero.addEventListener("click", () => asignarNumero(0));
+// uno.addEventListener("click", () => asignarNumero(1));
+// dos.addEventListener("click", () => asignarNumero(2));
+// tres.addEventListener("click", () => asignarNumero(3));
+// cuac.addEventListener("click", () => asignarNumero(4));
+// cinc.addEventListener("click", () => asignarNumero(5));
+// seis.addEventListener("click", () => asignarNumero(6));
+// siet.addEventListener("click", () => asignarNumero(7));
+// ocho.addEventListener("click", () => asignarNumero(8));
+// nuev.addEventListener("click", () => asignarNumero(9));
 
 // Eventos para recepcion del operador.
 operators.addEventListener("click", asignarOperador);
 
 // Eventos para acciones
-igualButton.addEventListener("click", () => realizarOp());
-btnDatos.addEventListener("click", () => mostrarCalculos());
-eliminarDatos.addEventListener("click", () => cleanScreen());
+igualButton.addEventListener("click", realizarOp);
+btnDatos.addEventListener("click",  mostrarCalculos);
+eliminarDatos.addEventListener("click", cleanScreen);
 
 //Funciones de control
 function realizarOp() {
@@ -72,10 +99,11 @@ function realizarOp() {
     console.log(numAnterior, numActual);
     actScreen2();
     numActual = resultadoOp;
-    actScreen();
+    actScreen(numActual);
     console.log(resultadoOp);
   }
 }
+
 function asignarOperador(event) {
   // Verificar si ya se seleccionó un operador
   if (operadorSeleccionado) {
@@ -91,30 +119,38 @@ function asignarOperador(event) {
     console.log(operador);
   }
 }
+
 function asignarNumero(num) {
   // Restablecer el estado del operador si se presiona un número
   operadorSeleccionado = false;
   // Concatenar el número al número actual como una cadena
   numActual = numActual.toString() + num.toString();
   // Actualizar la visualización en la pantalla
-  actScreen();
+  actScreen(numActual);
   console.log(numActual);
 }
-function actScreen() {
-  resultado.textContent = numActual;
+
+function actScreen(nuevoNumero) {
+  resultado.textContent = nuevoNumero;
 }
+
+function actualizarArray(operacionActual) {
+  operaHisto.push(`Operación n.${operaHisto.length} ${operacionActual}`);
+}
+
 function actScreen2() {
   // Crear una cadena que represente la operación actual
   const operacionActual = `${numAnterior} ${operador} ${numActual} = ${resultadoOp}`;
 
   // Agregar la operación al historial
-  operaHisto.push(`Operación n.${i} ${operacionActual}`);
-  i++;
+  actualizarArray(operacionActual)
+  // i++;
 
   // Actualizar datosData y verOpera
   datosData.textContent = operaHisto; // Historial de calculos
   verOpera.textContent = operacionActual;
 }
+
 function mostrarCalculos() {
   datosShow.classList.toggle("active");
   datosShow.classList.toggle("inactive");
@@ -128,8 +164,6 @@ function cleanScreen() {
   operadorSeleccionado = false;
   resultado.textContent = "";
   verOpera.textContent = "";
-
-
 }
 
 

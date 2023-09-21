@@ -45,12 +45,14 @@ body {
 #text-content {
     align-self: flex-end; /* Alinea este párrafo hacia el extremo inferior (derecha) */
     color: #f0f0f0;
+    flex: 1;
 }
 
 #operation-content {
     align-self: flex-start; /* Alinea este párrafo hacia el extremo superior (izquierda) */
     color: green;
-    font-size: 25px
+    font-size: 25px;
+    flex: 1;
 }
 /* Estilos para los números */
 .numbers {
