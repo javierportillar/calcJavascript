@@ -20,6 +20,7 @@ const datosShow = document.getElementById("datosShow");
 const datosData = document.getElementById("datosData");
 const resultado = document.querySelector("#text-content");
 const verOpera = document.getElementById("operation-content");
+const clearScreenBtn = document.querySelector(".clearScreen");
 
 // Declaración de variables de control //
 let numAnterior = "";
@@ -29,15 +30,18 @@ let resultadoOp = "";
 // Declaración de una indicador de seleccion de un operador
 let operadorSeleccionado = false;
 // Declaración de vector almacenador de operaciones
-const operaHisto = [];
+let operaHisto = [];
+let operaRealizada = false;
 // Numero de operaciones hechas
 let i = 1;
 
-
-
 document
-.querySelectorAll('#contenedor_numeros > button')
-.forEach((boton) => boton.addEventListener("click", () => asignarNumero(parseInt(boton.textContent))))
+  .querySelectorAll("#contenedor_numeros > button")
+  .forEach((boton) =>
+    boton.addEventListener("click", () =>
+      asignarNumero(parseInt(boton.textContent))
+    )
+  );
 
 // Eventos para recepcion del numero a operar
 // [cero, uno, dos, tres,cuac,
@@ -75,8 +79,9 @@ operators.addEventListener("click", asignarOperador);
 
 // Eventos para acciones
 igualButton.addEventListener("click", realizarOp);
-btnDatos.addEventListener("click",  mostrarCalculos);
-eliminarDatos.addEventListener("click", cleanScreen);
+btnDatos.addEventListener("click", mostrarCalculos);
+eliminarDatos.addEventListener("click", cleanCalculator);
+clearScreenBtn.addEventListener("click", clearScreen);
 
 //Funciones de control
 function realizarOp() {
@@ -94,10 +99,10 @@ function realizarOp() {
       case "/":
         resultadoOp = parseFloat(numAnterior) / parseFloat(numActual);
         break;
-      
     }
+    operaRealizada = true;
     console.log(numAnterior, numActual);
-    actScreen2();
+    actScreenTemporal();
     numActual = resultadoOp;
     actScreen(numActual);
     console.log(resultadoOp);
@@ -135,19 +140,21 @@ function actScreen(nuevoNumero) {
 }
 
 function actualizarArray(operacionActual) {
-  operaHisto.push(`Operación n.${operaHisto.length} ${operacionActual}`);
+  operaHisto.push(`N.${operaHisto.length} ${operacionActual}`);
 }
 
-function actScreen2() {
+function actScreenTemporal() {
   // Crear una cadena que represente la operación actual
   const operacionActual = `${numAnterior} ${operador} ${numActual} = ${resultadoOp}`;
 
   // Agregar la operación al historial
-  actualizarArray(operacionActual)
-  // i++;
+  actualizarArray(operacionActual);
+
+  const li = document.createElement("li");
+  li.textContent = `N.${operaHisto.length} ->${operacionActual}`;
+  datosData.appendChild(li);
 
   // Actualizar datosData y verOpera
-  datosData.textContent = operaHisto; // Historial de calculos
   verOpera.textContent = operacionActual;
 }
 
@@ -156,7 +163,7 @@ function mostrarCalculos() {
   datosShow.classList.toggle("inactive");
 }
 
-function cleanScreen() {
+function cleanCalculator() {
   numAnterior = "";
   numActual = "";
   operador = "";
@@ -164,7 +171,12 @@ function cleanScreen() {
   operadorSeleccionado = false;
   resultado.textContent = "";
   verOpera.textContent = "";
+  operaHisto = ""
+  datosData.innerHTML=""
 }
 
-
+function clearScreen() {
+  resultado.textContent = "";
+  numActual = "";
+}
 // Poner una lista en html para indicar las op

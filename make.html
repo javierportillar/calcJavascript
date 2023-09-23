@@ -10,10 +10,6 @@
 
 <body>
     <div class="calculadora">
-        <div id="datosShow" class="inactive">
-            <p>Calculos realizados.</p>
-            <p id="datosData"></p>
-        </div>
         <div class="screen">
             <p id="text-content"></p>
             <p id="operation-content"></p>
@@ -41,8 +37,14 @@
                 <button class="equal"> = </button>
                 <button class="btnDatos">Datos</button>
                 <button class="eliminarDatos">Delete</button>
+                <button class="clearScreen">Clear</button>
             </div>
         </div>
+    </div>
+    <div id="datosShow" class="inactive">
+        <p>Calculos realizados.</p>
+        <ul id="datosData"></ul>
+
     </div>
     <script src="index.js"></script>
 </body>
